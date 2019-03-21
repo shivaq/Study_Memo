@@ -1,0 +1,13 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template for combining all templates into one nested template for testing.
+#######################################################
+Resources:
+  Vpc:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3-ap-northeast-1.amazonaws.com/shivaq-cfn-bucket/Vpc.yaml
+  Sg:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3-ap-northeast-1.amazonaws.com/shivaq-cfn-bucket/Sg.yaml

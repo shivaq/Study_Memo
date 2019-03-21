@@ -1,0 +1,6 @@
+#.dockerignore
+.git/
+**/*.swp
+**/*.txt
+# special.txt は除く
+!special.txt

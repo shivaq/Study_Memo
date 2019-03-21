@@ -1,0 +1,17 @@
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■ valult で暗号化対象の変数設定
+/roles/some_role/vars/vault_explanation.yaml
+---
+  my_password: myasdkjfa;sdkfja
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■ 参照方法
+---
+ - include_vars: vault_explanation.yaml
+ - name: Put some text inside vault_explanation.yaml.
+   copy:
+     content="{{my_password}}"
+     dest=/tmp/my_password.txt
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■ 暗号化対象ファイルを暗号化
+ansible-vault encrypt /roles/some_role/vars/vault_explanation.yaml --vault-password-file ~/.vault_pass.txt
+ →バージョンコントロールに入れても大丈夫になる

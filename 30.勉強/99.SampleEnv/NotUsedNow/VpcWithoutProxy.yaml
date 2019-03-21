@@ -1,0 +1,133 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: VPC, Subnet, Gateways, ROuteTable, Route
+Resources:
+########## VPC ##########
+  MyVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      Tags:
+      - Key: Name
+        Value: MyVpc
+      EnableDnsSupport: 'True'
+      EnableDnsHostnames: 'True'
+########## Public Subnet ##########
+  FrontPublicSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.0.1.0/24
+      VpcId: !Ref MyVpc
+      Tags:
+      - Key: Name
+        Value: Front Public Subnet
+########## Internet Gateway ##########
+  MyInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: MyInternetGateway
+  MyIgwVpcAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref MyInternetGateway
+      VpcId: !Ref MyVpc
+########## Public RouteTable ##########
+  MyRtbPublic:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVpc
+      Tags:
+      - Key: Name
+        Value: Public RouteTable
+  MyPublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: MyInternetGateway
+    Properties:
+      RouteTableId: !Ref MyRtbPublic
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref MyInternetGateway
+  RtbAssociationFrontPublicSubnetA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref FrontPublicSubnetA
+      RouteTableId: !Ref MyRtbPublic
+########## Private Subnet ##########
+  MyPrivateSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.0.11.0/24
+      VpcId: !Ref MyVpc
+      Tags:
+      - Key: Name
+        Value: Private Subnet for instances
+  MyDbSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 10.0.20.0/24
+      VpcId: !Ref MyVpc
+      Tags:
+      - Key: Name
+        Value: Private Subnet for Db
+  MyDbSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: 10.0.21.0/24
+      VpcId: !Ref MyVpc
+      Tags:
+      - Key: Name
+        Value: Private Subnet for Db
+########## Private RouteTable ##########
+  MyRtbPrivate:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVpc
+      Tags:
+      - Key: Name
+        Value: Private RouteTable
+  RtbAssociationPrivateSubnetA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MyPrivateSubnetA
+      RouteTableId: !Ref MyRtbPrivate
+  RtbAssociationDbSubnetA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MyDbSubnetA
+      RouteTableId: !Ref MyRtbPrivate
+  RtbAssociationDbSubnetC:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MyDbSubnetC
+      RouteTableId: !Ref MyRtbPrivate
+################ Outputs ################
+Outputs:
+  MyVpc:
+    Value: !Ref MyVpc
+    Export:
+      Name: !Sub "${AWS::StackName}-MyVpc"
+  MyVpcCidrBlock:
+    Value: !GetAtt MyVpc.CidrBlock
+    Export:
+      Name: !Sub "${AWS::StackName}-MyVpcCidrBlock"
+  FrontPublicSubnetA:
+    Value: !Ref FrontPublicSubnetA
+    Export:
+      Name: !Sub "${AWS::StackName}-FrontPublicSubnetA"
+  MyPrivateSubnetA:
+    Value: !Ref MyPrivateSubnetA
+    Export:
+      Name: !Sub "${AWS::StackName}-MyPrivateSubnetA"
+  MyDbSubnetA:
+    Value: !Ref MyDbSubnetA
+    Export:
+      Name: !Sub "${AWS::StackName}-MyDbSubnetA"
+  MyDbSubnetC:
+    Value: !Ref MyDbSubnetC
+    Export:
+      Name: !Sub "${AWS::StackName}-MyDbSubnetC"
