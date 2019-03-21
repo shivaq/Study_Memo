@@ -1,4 +1,5 @@
-
+▼ 同一のリモートブランチに Push
+git push origin HEAD
 
 
 
