@@ -1,2 +1,0 @@
-.gitignore のごとく、ビルドコンテクストからそのfileが除外される。
- →つまり、Docker daemon にアップロードされない

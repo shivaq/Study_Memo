@@ -57,16 +57,7 @@ yum install -y python-pip
 
 
 ▼ virtualenv インストール
--------------------------------------------------
-新しいプロジェクトごとにvirtualenvを作成することをお勧め
--------------------------------------------------
-pip install virtualenv
 
-★★ グローバルな site-packages に pip-install すべきじゃない！
-
-virtualenv のセットアップ
-// virtualenvの設定.java を参照
--------------------------------------------------
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■ Docker
 // C:\Users\Yasuaki\Dropbox\01.study\MyAws\20.手順\001.Docker\インストール.java

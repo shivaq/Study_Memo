@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- CSS framework -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+    <!-- icon -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- このファイルのCSSは、ローカルのCSSファイルを参照する -->
+  <link rel="stylesheet"
+    href="../public/styles.css" />
+</head>
+
+<body>
+  <!-- div ->  ページ要素をカプセル化して、divide する -->
+  <!-- vue アプリがここにマウントされる -->
+  <div id="app">
+    <!-- class は CSS style を参照している -->
+    <h2 class="title has-text-centered dividing-header">UpVote!</h2>
+  </div>
+
+<!-- どの javascript ファイルをDLするか -->
+<!-- 最新バージョンの Vue をCDNからDL -->
+  <script src="https://unpkg.com/vue"></script>
+  <script src="./seed.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
