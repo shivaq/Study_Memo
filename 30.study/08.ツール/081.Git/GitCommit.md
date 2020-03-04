@@ -1,9 +1,8 @@
-# 前のコミットに変更を追加
+# Commit のコメントを変更
 
-```sh
-git commit --amend --no-edit
+```bash
+git commit --amend
 ```
-
 
 
 
@@ -40,4 +39,11 @@ pick sldfjs commit 3
 pick sldfjs commit 1
 fixup sldfjs commit 2
 fixup sldfjs commit 3
+```
+
+
+# 前のコミットに変更を追加
+
+```sh
+git commit --amend --no-edit
 ```
