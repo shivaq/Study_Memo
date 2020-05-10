@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/Users/yasuakishibata/Google_Drive/転職準備"
+		},
+		{
+			"path": "../../../PycharmProjects/operate_aws/set_aws_mfa2/set_aws_mfa/docs"
 		}
 	],
 	"settings": {}
